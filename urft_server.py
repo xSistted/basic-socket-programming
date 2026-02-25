@@ -1,8 +1,13 @@
 import socket
+import sys
 
 if __name__ == "__main__":
-    host = '127.0.0.1'
-    port = 8080
+    if len(sys.argv) != 3:
+        print("Usage: python urft_server.py <server_ip> <server_port>")
+        sys.exit(1)
+    
+    host = sys.argv[1]
+    port = int(sys.argv[2])
     
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((host, port))
