@@ -15,15 +15,16 @@ if __name__ == "__main__":
     print("UDP Server is waiting for data...")
         
     fileno = 0
+    filename_real = sock.recvfrom(1024)[0].decode()
     while True:
         data, addr = sock.recvfrom(1024)
         if not data:
             continue
-        filename = 'output'+str(fileno)+'.txt'
+        filename = filename_real
         fileno += 1
-        with open(filename, "w") as f:
+        with open(filename, "wb") as f:
             while data:
-                f.write(data.decode())
+                f.write(data)
                 data, addr = sock.recvfrom(1024)
                 if not data:
                     break
