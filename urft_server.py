@@ -8,7 +8,6 @@ TYPE_ACK = 1
 TYPE_METADATA = 2
 TYPE_FIN = 3
 
-# Header: Type (1 byte), SeqNum (4 bytes)
 HEADER_FORMAT = "!BI"
 HEADER_SIZE = struct.calcsize(HEADER_FORMAT)
 
