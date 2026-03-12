@@ -1,2 +1,6 @@
 test_file_2MiB.txt
 testfile.txt
+
+__pycache__
+
+received_files
