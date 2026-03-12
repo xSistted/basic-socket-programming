@@ -110,6 +110,7 @@ def main():
                 continue
             
             if pkt_sent_time[seq] == 0 or (current_time - pkt_sent_time[seq] > timeout):
+                print(f"Sending packet: {seq}")
                 sock.sendto(packets[seq], server_addr)
                 pkt_sent_time[seq] = current_time
                 pkt_transmissions[seq] += 1
@@ -160,6 +161,7 @@ def main():
         attempts += 1
 
     sock.close()
+    print("File transfer complete ehe❤️")
     sys.exit(0)
 
 if __name__ == "__main__":

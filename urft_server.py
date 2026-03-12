@@ -32,16 +32,16 @@ def main():
         
     print(f"Server running on {host}:{port}")
 
-    OUTPUT_DIR = "received_files"
-    if not os.path.exists(OUTPUT_DIR):
-        try:
-            os.makedirs(OUTPUT_DIR)
-            print(f"Created directory: {OUTPUT_DIR}")
-        except OSError as e:
-            print(f"Error creating directory: {e}")
-            sys.exit(1)
+    # OUTPUT_DIR = "received_files"
+    # if not os.path.exists(OUTPUT_DIR):
+    #     try:
+    #         os.makedirs(OUTPUT_DIR)
+    #         print(f"Created directory: {OUTPUT_DIR}")
+    #     except OSError as e:
+    #         print(f"Error creating directory: {e}")
+    #         sys.exit(1)
 
-    print(f"Files will be saved to: {os.path.abspath(OUTPUT_DIR)}")
+    # print(f"Files will be saved to: {os.path.abspath(OUTPUT_DIR)}")
 
     expected_seq = 0
     buffer = {} # Key: seq_num, Value: payload
@@ -63,7 +63,7 @@ def main():
                 try:
                     filename_raw = payload.decode('utf-8')
                     filename = os.path.basename(filename_raw)
-                    filepath = os.path.join(OUTPUT_DIR, filename)
+                    filepath = os.path.join(".", filename)
                     
                     if not transfer_started or (client_addr == addr):
                         client_addr = addr
@@ -85,6 +85,7 @@ def main():
                 if not transfer_started or client_addr != addr:
                     continue 
 
+                print(f"Received packet: {seq_num}")
                 ack = struct.pack(HEADER_FORMAT, TYPE_ACK, seq_num)
                 sock.sendto(ack, addr)
 
@@ -113,7 +114,7 @@ def main():
             continue
 
     if file_handle:
-        print(f"File transfer complete. Saved to: {file_handle.name}")
+        print(f"File transfer complete.\nSaved to: {file_handle.name}")
         file_handle.close()
     sock.close()
     sys.exit(0)
